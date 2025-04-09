@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Inter", system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-gray-900 transition-colors duration-300;
+  }
+
+  ::selection {
+    @apply bg-[#FF0080] text-white;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FF0080] to-[#7928CA];
+  }
+
+  .gradient-bg {
+    @apply bg-gradient-to-r from-[#FF0080] to-[#7928CA];
+  }
+
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-lg;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-b from-[#FF0080] to-[#7928CA] rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gradient-to-b from-[#7928CA] to-[#FF0080];
+}
+
+/* Animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Primary color utilities */
+.text-primary-500 {
+  @apply text-pink-500;
+}
+
+.text-primary-600 {
+  @apply text-pink-600;
+}
+
+.text-primary-400 {
+  @apply text-pink-400;
+}
+
+.bg-primary-500 {
+  @apply bg-pink-500;
+}
+
+.bg-primary-600 {
+  @apply bg-pink-600;
+}
+
+.bg-primary-400 {
+  @apply bg-pink-400;
+}
+
+/* Add these styles to improve page loading visuals */
+
+/* For smooth page transitions */
+.page-transition-enter,
+.page-transition-enter-active,
+.page-transition-exit,
+.page-transition-exit-active {
+  display: none;
+}
+
+/* Loading animation */
+@keyframes pulse-loading {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+.loading-pulse {
+  animation: none;
+}
+
+/* Page content fade-in animation */
+@keyframes content-fade-in {
+  from, to { opacity: 1; transform: none; }
+}
+
+[data-feature-content="true"] {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+/* Optimize image loading - remove content-visibility to ensure images load immediately */
+img {
+  content-visibility: visible !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Force images to load eagerly */
+img {
+  loading: eager;
+}
+
