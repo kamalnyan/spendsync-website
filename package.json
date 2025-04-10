@@ -6,10 +6,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && cp public/404.html dist/",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "vercel-build": "vite build",
+    "vercel-build": "vite build && cp public/404.html dist/",
     "start": "node server.js",
     "deploy": "gh-pages -d dist"
   },
