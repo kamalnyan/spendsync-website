@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename)
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {
@@ -19,6 +20,7 @@ export default defineConfig({
   },
   build: {
     sourcemap: true,
+    outDir: 'dist',
     rollupOptions: {
       output: {
         manualChunks: {
