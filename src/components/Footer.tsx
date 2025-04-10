@@ -3,7 +3,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { Linkedin, Instagram } from "lucide-react"
 import { motion } from "framer-motion"
-import AnimationContainer from "./animations/AnimationContainer"
+import SafeAnimationContainer from "./animations/SafeAnimationContainer"
 import { useScrollToTop } from "../hooks/useScrollToTop"
 import { appConfig } from "../config/appConfig"
 
@@ -58,7 +58,7 @@ const Footer = () => {
     <footer className="relative bg-gray-900 overflow-hidden">
       {/* 3D Background Element */}
       <div className="absolute right-0 bottom-0 opacity-20 pointer-events-none">
-        <AnimationContainer type="footer" height="h-64" />
+        <SafeAnimationContainer type="footer" height="h-64" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">

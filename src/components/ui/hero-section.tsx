@@ -2,7 +2,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import AnimatedText from "./animated-text"
-import AnimationContainer from "../animations/AnimationContainer"
+import SafeAnimationContainer from "../animations/SafeAnimationContainer"
 
 interface HeroSectionProps {
   title: string
