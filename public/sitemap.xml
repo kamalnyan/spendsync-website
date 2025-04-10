@@ -1,97 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://spendsync.kesug.com/</loc>
+    <loc>https://spendsync.vercel.app/</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/features</loc>
+    <loc>https://spendsync.vercel.app/features</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/about</loc>
+    <loc>https://spendsync.vercel.app/about</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/blog</loc>
+    <loc>https://spendsync.vercel.app/blog</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/blog/financial-tips</loc>
+    <loc>https://spendsync.vercel.app/blog/financial-tips</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/blog/product-updates</loc>
+    <loc>https://spendsync.vercel.app/blog/product-updates</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/blog/budgeting-tips</loc>
+    <loc>https://spendsync.vercel.app/blog/budgeting-tips</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/blog/spending-patterns</loc>
+    <loc>https://spendsync.vercel.app/blog/spending-patterns</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/blog/security</loc>
+    <loc>https://spendsync.vercel.app/blog/security</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/blog/group-expenses</loc>
+    <loc>https://spendsync.vercel.app/blog/group-expenses</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/help</loc>
+    <loc>https://spendsync.vercel.app/help</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/help/getting-started</loc>
+    <loc>https://spendsync.vercel.app/help/getting-started</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/help/account-security</loc>
+    <loc>https://spendsync.vercel.app/help/account-security</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/app-details</loc>
+    <loc>https://spendsync.vercel.app/app-details</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/privacy</loc>
+    <loc>https://spendsync.vercel.app/privacy</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://spendsync.kesug.com/terms</loc>
+    <loc>https://spendsync.vercel.app/terms</loc>
     <lastmod>2023-08-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
