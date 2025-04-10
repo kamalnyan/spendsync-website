@@ -8,4 +8,4 @@ Disallow: /admin/
 Disallow: /dashboard/private/
 
 # Sitemap location
-Sitemap: https://spendsync.app/sitemap.xml 
+Sitemap: https://spendsync.kesug.com/sitemap.xml 

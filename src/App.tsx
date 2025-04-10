@@ -7,6 +7,7 @@ import Footer from "./components/Footer"
 import useDocumentHead from "./hooks/useDocumentHead"
 import { appConfig } from "./config/appConfig"
 import PageTransition from "./components/PageTransition"
+import { SkeletonHeader, SkeletonFeature } from "./components/ui/skeleton"
 
 // Import framer-motion for page transitions
 import { AnimatePresence } from "framer-motion"
@@ -29,17 +30,47 @@ const GroupExpensesBlog = lazy(() => import("./pages/blog/group-expenses"))
 const GettingStarted = lazy(() => import("./pages/help/GettingStarted"))
 const AccountSecurity = lazy(() => import("./pages/help/AccountSecurity"))
 
-// Loading component
-const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center bg-gray-900">
-    <div className="text-center">
-      <div className="text-3xl font-bold bg-gradient-to-r from-[#FF0080] to-[#7928CA] bg-clip-text text-transparent mb-4">
-        SpendSync
+// Improved loading component with shimmer effect
+const PageLoader = () => {
+  // Get the current route to show appropriate skeleton
+  const location = useLocation();
+  const path = location.pathname;
+  
+  return (
+    <div className="min-h-screen bg-gray-900">
+      {/* Fixed navbar placeholder */}
+      <div className="h-16 bg-gray-900/95 border-b border-gray-800 backdrop-blur-lg sticky top-0 flex items-center px-6">
+        <div className="text-xl font-bold bg-gradient-to-r from-[#FF0080] to-[#7928CA] bg-clip-text text-transparent">
+          SpendSync
+        </div>
       </div>
-      <div className="text-white">Loading...</div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Show different skeletons based on the route */}
+        {path.includes('/features') ? (
+          <>
+            <SkeletonHeader />
+            <div className="space-y-32">
+              <SkeletonFeature />
+              <SkeletonFeature />
+            </div>
+          </>
+        ) : (
+          <>
+            <SkeletonHeader />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="rounded-xl bg-gray-800 h-64 animate-pulse relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-shimmer"></div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 function App() {
   // Initialize document head with default values

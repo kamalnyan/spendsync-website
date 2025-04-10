@@ -78,6 +78,7 @@ export default {
         float: "float 6s ease-in-out infinite",
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         gradient: "gradient 8s linear infinite",
+        shimmer: "shimmer 2s infinite"
       },
       keyframes: {
         float: {
@@ -89,6 +90,9 @@ export default {
           "50%": { backgroundPosition: "100% 50%" },
           "100%": { backgroundPosition: "0% 50%" },
         },
+        shimmer: {
+          "100%": { transform: "translateX(100%)" }
+        }
       },
       backgroundSize: {
         auto: "auto",

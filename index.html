@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" />
     
+    <!-- Preload critical JS chunks - adjust paths based on your build output -->
+    <link rel="modulepreload" href="/assets/vendor-react.js" />
+    
     <!-- SEO Meta Tags -->
     <title>SpendSync - Personal Finance Management</title>
     <meta name="description" content="SpendSync - Your comprehensive personal finance companion that combines powerful features with an intuitive interface to make financial management simple and effective." />
@@ -86,35 +89,129 @@
         font-size: 1rem;
         color: white;
       }
+      
+      /* Shimmer animation for initial loading */
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+      
+      .shimmer {
+        position: relative;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+      }
+      
+      .shimmer::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.1) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        animation: shimmer 2s infinite;
+      }
+      
+      /* Layout elements for initial skeleton */
+      .navbar-skeleton {
+        height: 4rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        padding: 0 1.5rem;
+      }
+      
+      .container-skeleton {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+      
+      .header-skeleton {
+        padding: 4rem 0;
+        text-align: center;
+      }
+      
+      .title-skeleton {
+        height: 3rem;
+        width: 60%;
+        margin: 0 auto 1.5rem;
+      }
+      
+      .subtitle-skeleton {
+        height: 1.5rem;
+        width: 80%;
+        margin: 0 auto 1rem;
+      }
+      
+      .grid-skeleton {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+      
+      .card-skeleton {
+        height: 250px;
+        border-radius: 0.75rem;
+      }
     </style>
     
-    <!-- Error handling script to debug white screen issues -->
+    <!-- Initial skeleton to show immediately -->
     <script>
-      // Create custom loading indicator
       document.addEventListener('DOMContentLoaded', function() {
-        const rootElement = document.getElementById('root');
-        if (rootElement && !rootElement.hasChildNodes()) {
-          const loadingContainer = document.createElement('div');
-          loadingContainer.id = 'loading-container';
+        const root = document.getElementById('root');
+        
+        // Only add skeleton if root is empty
+        if (root && !root.hasChildNodes()) {
+          // Create the skeleton structure
+          const skeleton = document.createElement('div');
+          skeleton.id = 'initial-skeleton';
+          skeleton.innerHTML = `
+            <div class="navbar-skeleton">
+              <div id="logo-element">SpendSync</div>
+            </div>
+            <div class="container-skeleton">
+              <div class="header-skeleton">
+                <div class="title-skeleton shimmer"></div>
+                <div class="subtitle-skeleton shimmer"></div>
+                <div class="subtitle-skeleton shimmer" style="width: 40%"></div>
+              </div>
+              <div class="grid-skeleton">
+                <div class="card-skeleton shimmer"></div>
+                <div class="card-skeleton shimmer"></div>
+                <div class="card-skeleton shimmer"></div>
+              </div>
+            </div>
+          `;
           
-          const logoElement = document.createElement('div');
-          logoElement.id = 'logo-element';
-          logoElement.textContent = 'SpendSync';
+          root.appendChild(skeleton);
           
-          const loadingElement = document.createElement('div');
-          loadingElement.id = 'loading-indicator';
-          loadingElement.textContent = 'Loading...';
+          // Remove skeleton when app loads
+          const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              if (mutation.addedNodes.length > 0 && document.getElementById('initial-skeleton')) {
+                const skeleton = document.getElementById('initial-skeleton');
+                if (skeleton && skeleton.parentNode) {
+                  skeleton.parentNode.removeChild(skeleton);
+                }
+                observer.disconnect();
+              }
+            });
+          });
           
-          loadingContainer.appendChild(logoElement);
-          loadingContainer.appendChild(loadingElement);
-          document.body.appendChild(loadingContainer);
-          
-          // Set a timeout to remove the loading indicator if app doesn't load
-          setTimeout(function() {
-            if (document.getElementById('loading-container')) {
-              document.body.removeChild(loadingContainer);
-            }
-          }, 10000);
+          observer.observe(root, { childList: true });
         }
       });
       
@@ -122,15 +219,16 @@
       window.addEventListener('error', function(e) {
         console.error('Caught error:', e);
         
-        // Remove the loading indicator if there's an error
-        const loadingContainer = document.getElementById('loading-container');
-        if (loadingContainer) {
-          document.body.removeChild(loadingContainer);
+        const rootElement = document.getElementById('root');
+        const initialSkeleton = document.getElementById('initial-skeleton');
+        
+        // Remove skeleton if there's an error
+        if (initialSkeleton) {
+          initialSkeleton.remove();
         }
         
         // Only show error UI if app hasn't loaded yet
-        const rootElement = document.getElementById('root');
-        if (rootElement && !rootElement.hasChildNodes()) {
+        if (rootElement && (!rootElement.hasChildNodes() || rootElement.childNodes.length === 1 && rootElement.firstChild.id === 'initial-skeleton')) {
           const errorDiv = document.createElement('div');
           errorDiv.style.position = 'fixed';
           errorDiv.style.top = '0';
