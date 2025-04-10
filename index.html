@@ -10,7 +10,7 @@
     <meta name="keywords" content="personal finance, budget tracker, expense management, financial planning, money management, finance app" />
     <meta name="author" content="SpendSync" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://spendsync.app" />
+    <link rel="canonical" href="https://spendsync.kesug.com" />
     
     <!-- Favicon and app icons -->
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
@@ -27,9 +27,9 @@
     <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:title" content="SpendSync - Personal Finance Management" />
     <meta property="og:description" content="Your comprehensive personal finance companion that combines powerful features with an intuitive interface." />
-    <meta property="og:image" content="https://spendsync.app/icons/og-image.png" />
+    <meta property="og:image" content="https://spendsync.kesug.com/icons/og-image.png" />
     <meta property="og:image:alt" content="SpendSync - Personal Finance Management" />
-    <meta property="og:url" content="https://spendsync.app" />
+    <meta property="og:url" content="https://spendsync.kesug.com" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="SpendSync" />
     <meta property="og:locale" content="en_US" />
@@ -38,12 +38,41 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="SpendSync - Personal Finance Management" />
     <meta name="twitter:description" content="Your comprehensive personal finance companion that combines powerful features with an intuitive interface." />
-    <meta name="twitter:image" content="https://spendsync.app/icons/og-image.png" />
+    <meta name="twitter:image" content="https://spendsync.kesug.com/icons/og-image.png" />
     
     <!-- Preload fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Error handling script to debug white screen issues -->
+    <script>
+      window.addEventListener('error', function(e) {
+        const errorDiv = document.createElement('div');
+        errorDiv.style.background = 'red';
+        errorDiv.style.color = 'white';
+        errorDiv.style.padding = '20px';
+        errorDiv.style.margin = '20px';
+        errorDiv.style.fontFamily = 'monospace';
+        errorDiv.textContent = 'Error: ' + e.message + ' at ' + e.filename + ':' + e.lineno;
+        document.body.appendChild(errorDiv);
+        console.error('Caught error:', e);
+      });
+      
+      // Display loading indicator
+      document.addEventListener('DOMContentLoaded', function() {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.id = 'loading-indicator';
+        loadingDiv.textContent = 'Loading SpendSync...';
+        loadingDiv.style.position = 'fixed';
+        loadingDiv.style.top = '50%';
+        loadingDiv.style.left = '50%';
+        loadingDiv.style.transform = 'translate(-50%, -50%)';
+        loadingDiv.style.fontSize = '24px';
+        loadingDiv.style.color = '#7928CA';
+        document.body.appendChild(loadingDiv);
+      });
+    </script>
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -69,6 +98,7 @@
   </head>
   <body>
     <div id="root"></div>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
