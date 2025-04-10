@@ -66,6 +66,51 @@ class ThreeJSErrorBoundary extends React.Component<{children: React.ReactNode}, 
   }
 }
 
+// Static animation placeholder to use instead of Three.js in production
+function StaticAnimationPlaceholder({ type, color }: { type: AnimationType, color: string }) {
+  // Add animation keyframes to the document if they don't exist yet
+  useEffect(() => {
+    if (!document.getElementById('animation-keyframes')) {
+      const styleEl = document.createElement('style');
+      styleEl.id = 'animation-keyframes';
+      styleEl.textContent = `
+        @keyframes pulse {
+          0% { opacity: 0.3; transform: scale(0.95); }
+          50% { opacity: 0.7; transform: scale(1.05); }
+          100% { opacity: 0.3; transform: scale(0.95); }
+        }
+      `;
+      document.head.appendChild(styleEl);
+    }
+  }, []);
+
+  return (
+    <div className="w-full h-full relative overflow-hidden rounded-lg">
+      {/* Gradient background based on animation type */}
+      <div 
+        className="absolute inset-0" 
+        style={{ 
+          background: `linear-gradient(135deg, ${color}88, ${color}44)`,
+          opacity: 0.8
+        }}
+      ></div>
+      
+      {/* Animated gradient overlay */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: `radial-gradient(circle at 50% 50%, ${color}66, transparent 70%)`,
+          animation: 'pulse 3s infinite ease-in-out'
+        }}
+      ></div>
+      
+      {/* Decorative elements */}
+      <div className="absolute top-1/4 left-1/4 w-12 h-12 rounded-full" style={{ background: `${color}66` }}></div>
+      <div className="absolute bottom-1/4 right-1/4 w-8 h-8 rounded-full" style={{ background: `${color}88` }}></div>
+    </div>
+  );
+}
+
 export default function AnimationContainer({ 
   type = "finance", 
   className = "", 
@@ -74,20 +119,37 @@ export default function AnimationContainer({
   customColor
 }: AnimationContainerProps) {
   const [isMounted, setIsMounted] = useState(false);
+  const [isProduction, setIsProduction] = useState(true);
   
   // Only render on client-side
   useEffect(() => {
     setIsMounted(true);
+    
+    // Check if we're in development mode
+    // This is safer than trying to load Three.js in production environments
+    if (process.env.NODE_ENV === 'development') {
+      setIsProduction(false);
+    }
   }, []);
   
   // Use custom color if provided, otherwise use the predefined color for the type
   const color = customColor || colorSchemes[type]
   
-  // Fallback content when not mounted or if there's an error
+  // Fallback content when not mounted
   if (!isMounted) {
     return <div className={`${height} w-full ${className} bg-gray-800 bg-opacity-50 rounded-lg`}></div>;
   }
   
+  // Use static placeholder in production to avoid Three.js issues
+  if (isProduction) {
+    return (
+      <div className={`${height} w-full ${className}`}>
+        <StaticAnimationPlaceholder type={type} color={color} />
+      </div>
+    );
+  }
+  
+  // Only use Three.js in development
   return (
     <div className={`${height} w-full ${className}`}>
       <ThreeJSErrorBoundary>
