@@ -47,30 +47,94 @@
     
     <!-- Error handling script to debug white screen issues -->
     <script>
-      window.addEventListener('error', function(e) {
-        const errorDiv = document.createElement('div');
-        errorDiv.style.background = 'red';
-        errorDiv.style.color = 'white';
-        errorDiv.style.padding = '20px';
-        errorDiv.style.margin = '20px';
-        errorDiv.style.fontFamily = 'monospace';
-        errorDiv.textContent = 'Error: ' + e.message + ' at ' + e.filename + ':' + e.lineno;
-        document.body.appendChild(errorDiv);
-        console.error('Caught error:', e);
+      // Create custom loading indicator
+      document.addEventListener('DOMContentLoaded', function() {
+        const rootElement = document.getElementById('root');
+        if (rootElement && !rootElement.hasChildNodes()) {
+          const loadingContainer = document.createElement('div');
+          loadingContainer.id = 'loading-container';
+          loadingContainer.style.position = 'fixed';
+          loadingContainer.style.top = '0';
+          loadingContainer.style.left = '0';
+          loadingContainer.style.width = '100%';
+          loadingContainer.style.height = '100%';
+          loadingContainer.style.display = 'flex';
+          loadingContainer.style.flexDirection = 'column';
+          loadingContainer.style.alignItems = 'center';
+          loadingContainer.style.justifyContent = 'center';
+          loadingContainer.style.background = 'linear-gradient(135deg, #0f0c29, #302b63, #24243e)';
+          loadingContainer.style.zIndex = '9999';
+          
+          const logoElement = document.createElement('div');
+          logoElement.textContent = 'SpendSync';
+          logoElement.style.fontSize = '2rem';
+          logoElement.style.fontWeight = 'bold';
+          logoElement.style.marginBottom = '1rem';
+          logoElement.style.background = 'linear-gradient(90deg, #FF0080, #7928CA)';
+          logoElement.style.webkitBackgroundClip = 'text';
+          logoElement.style.webkitTextFillColor = 'transparent';
+          
+          const loadingElement = document.createElement('div');
+          loadingElement.id = 'loading-indicator';
+          loadingElement.textContent = 'Loading...';
+          loadingElement.style.fontSize = '1rem';
+          loadingElement.style.color = 'white';
+          
+          loadingContainer.appendChild(logoElement);
+          loadingContainer.appendChild(loadingElement);
+          document.body.appendChild(loadingContainer);
+          
+          // Set a timeout to remove the loading indicator if app doesn't load
+          setTimeout(function() {
+            if (document.getElementById('loading-container')) {
+              document.body.removeChild(loadingContainer);
+            }
+          }, 10000);
+        }
       });
       
-      // Display loading indicator
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadingDiv = document.createElement('div');
-        loadingDiv.id = 'loading-indicator';
-        loadingDiv.textContent = 'Loading SpendSync...';
-        loadingDiv.style.position = 'fixed';
-        loadingDiv.style.top = '50%';
-        loadingDiv.style.left = '50%';
-        loadingDiv.style.transform = 'translate(-50%, -50%)';
-        loadingDiv.style.fontSize = '24px';
-        loadingDiv.style.color = '#7928CA';
-        document.body.appendChild(loadingDiv);
+      // Global error handler
+      window.addEventListener('error', function(e) {
+        console.error('Caught error:', e);
+        
+        // Remove the loading indicator if there's an error
+        const loadingContainer = document.getElementById('loading-container');
+        if (loadingContainer) {
+          document.body.removeChild(loadingContainer);
+        }
+        
+        // Only show error UI if app hasn't loaded yet
+        const rootElement = document.getElementById('root');
+        if (rootElement && !rootElement.hasChildNodes()) {
+          const errorDiv = document.createElement('div');
+          errorDiv.style.position = 'fixed';
+          errorDiv.style.top = '0';
+          errorDiv.style.left = '0';
+          errorDiv.style.width = '100%';
+          errorDiv.style.height = '100%';
+          errorDiv.style.padding = '2rem';
+          errorDiv.style.background = 'linear-gradient(135deg, #0f0c29, #302b63, #24243e)';
+          errorDiv.style.color = 'white';
+          errorDiv.style.fontFamily = 'Inter, sans-serif';
+          errorDiv.style.display = 'flex';
+          errorDiv.style.flexDirection = 'column';
+          errorDiv.style.alignItems = 'center';
+          errorDiv.style.justifyContent = 'center';
+          errorDiv.style.textAlign = 'center';
+          
+          errorDiv.innerHTML = `
+            <div style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem; background: linear-gradient(90deg, #FF0080, #7928CA); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+              SpendSync
+            </div>
+            <h2 style="margin: 1rem 0; font-size: 1.5rem;">We're experiencing technical difficulties</h2>
+            <p style="margin: 0.5rem 0; max-width: 500px;">Our team has been notified of this issue. Please try again later.</p>
+            <button onclick="window.location.reload()" style="margin-top: 2rem; padding: 0.75rem 2rem; background: linear-gradient(90deg, #FF0080, #7928CA); color: white; border: none; border-radius: 9999px; font-weight: bold; cursor: pointer;">
+              Reload Page
+            </button>
+          `;
+          
+          document.body.appendChild(errorDiv);
+        }
       });
     </script>
     
