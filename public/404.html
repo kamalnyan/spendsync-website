@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found | SpendSync</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #fff;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    header {
+      text-align: center;
+      padding: 2rem 0;
+    }
+    
+    .logo {
+      font-size: 2.5rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #FF0080, #7928CA);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    
+    .tagline {
+      font-size: 1.25rem;
+      opacity: 0.8;
+      margin-top: 0.5rem;
+    }
+    
+    .hero {
+      text-align: center;
+      padding: 4rem 0;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #FF0080, #7928CA);
+      color: white;
+      text-decoration: none;
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 4rem 0;
+    }
+    
+    .feature {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    
+    .feature:hover {
+      transform: translateY(-10px);
+    }
+    
+    .feature h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+    
+    .error-message {
+      background: rgba(255, 0, 128, 0.2);
+      border: 1px solid rgba(255, 0, 128, 0.3);
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    
+    .error-code {
+      font-size: 8rem;
+      font-weight: bold;
+      margin: 0;
+      background: linear-gradient(90deg, #FF0080, #7928CA);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .features {
+        grid-template-columns: 1fr;
+      }
+      
+      .error-code {
+        font-size: 6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">SpendSync</div>
+      <div class="tagline">Your Personal Finance Companion</div>
+    </header>
+    
+    <div class="error-message">
+      <div class="error-code">404</div>
+      <h2>Page Not Found</h2>
+      <p>The page you are looking for doesn't exist or has been moved.</p>
+    </div>
+    
+    <section class="hero">
+      <h1>Let's Get You Back on Track</h1>
+      <p>
+        Sorry for the inconvenience. You can return to our homepage or explore some of our key features below.
+      </p>
+      <a href="/" class="btn">Return to Homepage</a>
+    </section>
+    
+    <section class="features">
+      <div class="feature">
+        <h3>Expense Tracking</h3>
+        <p>Keep track of all your expenses in one place with easy categorization and tagging.</p>
+      </div>
+      
+      <div class="feature">
+        <h3>Budget Management</h3>
+        <p>Create and monitor budgets for different categories and get notifications when approaching limits.</p>
+      </div>
+      
+      <div class="feature">
+        <h3>Financial Insights</h3>
+        <p>Get personalized insights into your spending patterns and recommendations for savings.</p>
+      </div>
+    </section>
+    
+    <footer>
+      <p>&copy; 2025 SpendSync. All rights reserved.</p>
+    </footer>
+  </div>
+</body>
+</html> 

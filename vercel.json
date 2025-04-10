@@ -7,8 +7,6 @@
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "status": 404, "dest": "/fallback.html" }
-  ]
+  "trailingSlash": false,
+  "cleanUrls": true
 } 

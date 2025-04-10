@@ -7,5 +7,15 @@ export default defineConfig({
     proxy: {
       '/api': 'http://localhost:3001'
     }
+  },
+  base: '/spendsync-website/',
+  build: {
+    outDir: 'dist',
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        404: '404.html',
+      },
+    },
   }
 }) 
