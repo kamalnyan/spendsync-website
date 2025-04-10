@@ -11,7 +11,7 @@ interface PlayStoreData {
 export function usePlayStore(appId: string): PlayStoreData {
   const [data, setData] = useState<PlayStoreData>({
     downloads: "50+", // Default value from Play Store
-    rating: "0",
+    rating: "New",    // Changed from "0" to "New" for new apps
     isLoading: true,
     error: null
   });
@@ -21,6 +21,10 @@ export function usePlayStore(appId: string): PlayStoreData {
     
     async function getPlayStoreData() {
       try {
+        // Add a slight delay to prevent too quick flashing of loading state
+        const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+        await delay(600);
+        
         const result = await fetchPlayStoreData(appId);
         
         if (isMounted) {

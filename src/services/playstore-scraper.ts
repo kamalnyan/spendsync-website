@@ -7,7 +7,7 @@ interface AppData {
 
 const DEFAULT_APP_DATA: AppData = {
   downloads: "50+",
-  rating: "0",
+  rating: "New",  // Changed from "0" to "New" to better reflect new apps without ratings
   isLoading: false,
   error: null
 };
@@ -17,21 +17,36 @@ const DEFAULT_APP_DATA: AppData = {
 // we'll simulate the fetching with sample data
 export async function fetchPlayStoreData(appId: string): Promise<AppData> {
   try {
-    // Make a request to your backend API that handles Play Store scraping
-    const response = await fetch(`/api/playstore-stats?appId=${appId}`);
-    
-    if (!response.ok) {
-      throw new Error('Failed to fetch Play Store data');
+    // Check if running in development mode and return mock data
+    if (process.env.NODE_ENV === 'development' || !appId.includes('com.rml.spendsync')) {
+      console.log('Using mock Play Store data in development mode');
+      return {
+        ...DEFAULT_APP_DATA,
+        isLoading: false
+      };
     }
-
-    const data = await response.json();
     
-    return {
-      downloads: data.downloads || "50+", // From the Play Store page
-      rating: data.rating || "0",
-      isLoading: false,
-      error: null
-    };
+    // Make a request to your backend API that handles Play Store scraping
+    try {
+      const response = await fetch(`/api/playstore-stats?appId=${appId}`);
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch Play Store data');
+      }
+
+      const data = await response.json();
+      
+      return {
+        downloads: data.downloads || "50+", // From the Play Store page
+        rating: data.rating || "New",
+        isLoading: false,
+        error: null
+      };
+    } catch (error) {
+      // If API endpoint doesn't exist, return default values
+      console.warn("API endpoint not available, using default values");
+      return DEFAULT_APP_DATA;
+    }
   } catch (error) {
     console.error("Failed to fetch Play Store data:", error);
     return {

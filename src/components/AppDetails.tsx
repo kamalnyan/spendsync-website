@@ -3,15 +3,60 @@ import { motion } from "framer-motion"
 import { Clock, Calendar, Download, Shield, Star, Smartphone } from "lucide-react"
 import { usePlayStore } from "../hooks/usePlayStore"
 import { appConfig } from "../config/appConfig"
+import { Skeleton } from "./ui/skeleton"
 
 const AppDetails = () => {
   const appData = usePlayStore("com.rml.spendsync")
+
+  // Function to render star rating
+  const renderStarRating = (rating: string) => {
+    if (rating === "New") {
+      return (
+        <div className="flex items-center">
+          <span className="bg-primary-100 text-primary-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+            New
+          </span>
+          <span className="text-xs text-gray-500 dark:text-gray-400">Not enough ratings yet</span>
+        </div>
+      );
+    }
+    
+    const numRating = parseFloat(rating);
+    if (isNaN(numRating)) return null;
+    
+    return (
+      <div className="flex items-center">
+        <div className="flex mr-1">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <Star
+              key={star}
+              size={16}
+              className={`${
+                star <= numRating
+                  ? "text-yellow-400 fill-yellow-400"
+                  : star - 0.5 <= numRating
+                  ? "text-yellow-400 fill-yellow-400 opacity-50"
+                  : "text-gray-300 dark:text-gray-600"
+              }`}
+            />
+          ))}
+        </div>
+        <span className="text-sm font-medium">{numRating.toFixed(1)}</span>
+      </div>
+    );
+  };
 
   const appMetadata = [
     { icon: <Star size={20} />, label: "Version", value: appConfig.version },
     { icon: <Calendar size={20} />, label: "Updated on", value: "28 Mar 2025" },
     { icon: <Smartphone size={20} />, label: "Requires Android", value: appConfig.platform.requirements[0] },
-    { icon: <Download size={20} />, label: "Downloads", value: appData.isLoading ? "Loading..." : appData.downloads },
+    { icon: <Download size={20} />, label: "Downloads", value: appData.isLoading ? <Skeleton className="w-16 h-5" /> : appData.downloads },
+    { 
+      icon: <Star size={20} />, 
+      label: "Rating", 
+      value: appData.isLoading ? <Skeleton className="w-24 h-5" /> : renderStarRating(appData.rating),
+      isComponent: true
+    },
     { icon: <Shield size={20} />, label: "Content rating", value: "Everyone" },
     { icon: <Clock size={20} />, label: "Released on", value: "4 Feb 2025" },
   ]
@@ -53,6 +98,18 @@ const AppDetails = () => {
     "Crash reporting and analytics for ongoing improvements"
   ]
 
+  // Add a banner for new app notice
+  const NewAppBanner = () => (
+    <div className="bg-gradient-to-r from-blue-500 to-violet-500 text-white p-3 rounded-md mb-6">
+      <div className="flex items-center">
+        <Star className="mr-2" size={18} fill="white" />
+        <p className="text-sm font-medium">
+          {appConfig.name} is new to the Play Store! Be one of the first to rate it and help others discover this app.
+        </p>
+      </div>
+    </div>
+  );
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
       <div className="bg-gradient-to-r from-primary-600 to-accent-600 p-6 text-white">
@@ -69,6 +126,9 @@ const AppDetails = () => {
           </p>
         </div>
 
+        {/* New App Banner */}
+        {appData.rating === "New" && !appData.isLoading && <NewAppBanner />}
+
         {/* App Metadata */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
           {appMetadata.map((item, index) => (
@@ -78,10 +138,27 @@ const AppDetails = () => {
               </div>
               <div>
                 <p className="text-sm text-gray-500 dark:text-gray-400">{item.label}</p>
-                <p className="font-medium">{item.value}</p>
+                {item.isComponent ? (
+                  item.value
+                ) : (
+                  <p className="font-medium">{item.value}</p>
+                )}
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Play Store Link */}
+        <div className="mb-8">
+          <a 
+            href="https://play.google.com/store/apps/details?id=com.rml.spendsync" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+          >
+            <Download size={18} className="mr-2" />
+            View on Google Play
+          </a>
         </div>
 
         {/* Key Features */}
