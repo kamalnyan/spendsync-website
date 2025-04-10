@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/icons/favicon-32x32.png" as="image" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" />
+    
     <!-- SEO Meta Tags -->
     <title>SpendSync - Personal Finance Management</title>
     <meta name="description" content="SpendSync - Your comprehensive personal finance companion that combines powerful features with an intuitive interface to make financial management simple and effective." />
@@ -40,10 +46,47 @@
     <meta name="twitter:description" content="Your comprehensive personal finance companion that combines powerful features with an intuitive interface." />
     <meta name="twitter:image" content="https://spendsync.kesug.com/icons/og-image.png" />
     
-    <!-- Preload fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Load fonts with display=swap -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    </noscript>
+    
+    <!-- Inline critical CSS -->
+    <style>
+      /* Critical CSS for initial render */
+      body {
+        margin: 0;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #0f0c29;
+        color: white;
+      }
+      #loading-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        z-index: 9999;
+      }
+      #logo-element {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        background: linear-gradient(90deg, #FF0080, #7928CA);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      #loading-indicator {
+        font-size: 1rem;
+        color: white;
+      }
+    </style>
     
     <!-- Error handling script to debug white screen issues -->
     <script>
@@ -53,32 +96,14 @@
         if (rootElement && !rootElement.hasChildNodes()) {
           const loadingContainer = document.createElement('div');
           loadingContainer.id = 'loading-container';
-          loadingContainer.style.position = 'fixed';
-          loadingContainer.style.top = '0';
-          loadingContainer.style.left = '0';
-          loadingContainer.style.width = '100%';
-          loadingContainer.style.height = '100%';
-          loadingContainer.style.display = 'flex';
-          loadingContainer.style.flexDirection = 'column';
-          loadingContainer.style.alignItems = 'center';
-          loadingContainer.style.justifyContent = 'center';
-          loadingContainer.style.background = 'linear-gradient(135deg, #0f0c29, #302b63, #24243e)';
-          loadingContainer.style.zIndex = '9999';
           
           const logoElement = document.createElement('div');
+          logoElement.id = 'logo-element';
           logoElement.textContent = 'SpendSync';
-          logoElement.style.fontSize = '2rem';
-          logoElement.style.fontWeight = 'bold';
-          logoElement.style.marginBottom = '1rem';
-          logoElement.style.background = 'linear-gradient(90deg, #FF0080, #7928CA)';
-          logoElement.style.webkitBackgroundClip = 'text';
-          logoElement.style.webkitTextFillColor = 'transparent';
           
           const loadingElement = document.createElement('div');
           loadingElement.id = 'loading-indicator';
           loadingElement.textContent = 'Loading...';
-          loadingElement.style.fontSize = '1rem';
-          loadingElement.style.color = 'white';
           
           loadingContainer.appendChild(logoElement);
           loadingContainer.appendChild(loadingElement);

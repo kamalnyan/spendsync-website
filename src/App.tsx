@@ -1,31 +1,45 @@
 "use client"
 
-import React, { useEffect } from "react"
+import React, { useEffect, lazy, Suspense } from "react"
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
-import Home from "./pages/Home"
-import Features from "./pages/Features"
-import About from "./pages/About"
-import Blog from "./pages/Blog"
-import Privacy from "./pages/Privacy"
-import Help from "./pages/Help"
-import AppDetails from "./pages/AppDetails"
-import Terms from "./pages/Terms"
-import FinancialTipsBlog from "./pages/blog/financial-tips"
-import ProductUpdatesBlog from "./pages/blog/product-updates"
-import BudgetingTipsBlog from "./pages/blog/budgeting-tips"
-import SpendingPatternsBlog from "./pages/blog/spending-patterns"
-import SecurityBlog from "./pages/blog/security"
-import GroupExpensesBlog from "./pages/blog/group-expenses"
-import GettingStarted from "./pages/help/GettingStarted"
-import AccountSecurity from "./pages/help/AccountSecurity"
 import useDocumentHead from "./hooks/useDocumentHead"
 import { appConfig } from "./config/appConfig"
 import PageTransition from "./components/PageTransition"
 
 // Import framer-motion for page transitions
 import { AnimatePresence } from "framer-motion"
+
+// Lazy load pages
+const Home = lazy(() => import("./pages/Home"))
+const Features = lazy(() => import("./pages/Features"))
+const About = lazy(() => import("./pages/About"))
+const Blog = lazy(() => import("./pages/Blog"))
+const Privacy = lazy(() => import("./pages/Privacy"))
+const Help = lazy(() => import("./pages/Help"))
+const AppDetails = lazy(() => import("./pages/AppDetails"))
+const Terms = lazy(() => import("./pages/Terms"))
+const FinancialTipsBlog = lazy(() => import("./pages/blog/financial-tips"))
+const ProductUpdatesBlog = lazy(() => import("./pages/blog/product-updates"))
+const BudgetingTipsBlog = lazy(() => import("./pages/blog/budgeting-tips"))
+const SpendingPatternsBlog = lazy(() => import("./pages/blog/spending-patterns"))
+const SecurityBlog = lazy(() => import("./pages/blog/security"))
+const GroupExpensesBlog = lazy(() => import("./pages/blog/group-expenses"))
+const GettingStarted = lazy(() => import("./pages/help/GettingStarted"))
+const AccountSecurity = lazy(() => import("./pages/help/AccountSecurity"))
+
+// Loading component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-900">
+    <div className="text-center">
+      <div className="text-3xl font-bold bg-gradient-to-r from-[#FF0080] to-[#7928CA] bg-clip-text text-transparent mb-4">
+        SpendSync
+      </div>
+      <div className="text-white">Loading...</div>
+    </div>
+  </div>
+);
 
 function App() {
   // Initialize document head with default values
@@ -48,7 +62,9 @@ function AppContent() {
     <div className="min-h-screen bg-gray-900 text-white relative">
       <Navbar />
       <ScrollToTop />
-      <AnimatedRoutes />
+      <Suspense fallback={<PageLoader />}>
+        <AnimatedRoutes />
+      </Suspense>
       <Footer />
     </div>
   );
